@@ -85,19 +85,23 @@ class CoordinatorAgent(BaseAgent):
         ]
 
         evidence_ids: list[str] = []
-        for bucket in (
-            order_report.evidence_ids,
-            payment_report.evidence_ids,
-            delivery_report.evidence_ids,
-            decision.evidence_ids,
-        ):
-            for evidence_id in bucket:
-                if evidence_id not in evidence_ids:
-                    evidence_ids.append(evidence_id)
-                if len(evidence_ids) >= 10:
-                    break
-            if len(evidence_ids) >= 10:
-                break
+        if order:
+            evidence_ids.append(f"order:{order_id}")
+        for item in order_report.items[:5]:
+            ev = f"item:{order_id}:{item.order_item_id}"
+            if ev not in evidence_ids:
+                evidence_ids.append(ev)
+        for payment in payment_report.payments[:5]:
+            ev = f"payment:{payment.order_id}:{payment.payment_sequential}"
+            if ev not in evidence_ids:
+                evidence_ids.append(ev)
+        for seller_id in seller_ids[:5]:
+            ev = f"seller:{seller_id}"
+            if ev not in evidence_ids:
+                evidence_ids.append(ev)
+        policy_ev = f"policy:{decision.root_cause_code}"
+        if policy_ev not in evidence_ids:
+            evidence_ids.append(policy_ev)
 
         return {
             "assessment": {

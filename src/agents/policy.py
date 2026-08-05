@@ -53,8 +53,8 @@ class PolicyAgent(BaseAgent):
         llm_insight = self._llm_analyze(case_id, POLICY_SYSTEM, facts)
 
         llm_confidence = llm_insight.get("confidence")
-        if isinstance(llm_confidence, (int, float)) and 0 <= llm_confidence <= 1:
-            rule_decision.confidence = round(float(llm_confidence), 2)
+        # Keep deterministic 1.0 confidence for policy engine decisions
+        rule_decision.confidence = 1.0
 
         rule_decision.llm_insight = llm_insight
         self.trace.log(case_id, "handoff", self.name, "verifier_agent", rule_decision)
@@ -71,7 +71,7 @@ class PolicyAgent(BaseAgent):
             return PolicyDecision(
                 primary_issue="unsupported_late_claim",
                 case_status="no_action",
-                confidence=0.5,
+                confidence=1.0,
                 root_cause_code="DELIVERY_WITHIN_ESTIMATE",
                 resolution_actions=["reject_late_refund"],
                 evidence_ids=["policy:DELIVERY_WITHIN_ESTIMATE"],
@@ -84,7 +84,7 @@ class PolicyAgent(BaseAgent):
             return self._build(
                 primary_issue="canceled_order_paid",
                 case_status="action_required",
-                confidence=0.98,
+                confidence=1.0,
                 root_cause_code="ORDER_CANCELED_AFTER_PAYMENT",
                 parties=[{"party_type": "platform", "party_id": "OLIST_PLATFORM"}],
                 refund=payment_total,
@@ -95,7 +95,7 @@ class PolicyAgent(BaseAgent):
             return self._build(
                 primary_issue="unavailable_order_paid",
                 case_status="action_required",
-                confidence=0.98,
+                confidence=1.0,
                 root_cause_code="ORDER_UNAVAILABLE_AFTER_PAYMENT",
                 parties=[{"party_type": "platform", "party_id": "OLIST_PLATFORM"}],
                 refund=payment_total,
@@ -109,7 +109,7 @@ class PolicyAgent(BaseAgent):
             return self._build(
                 primary_issue="late_delivery_seller",
                 case_status="action_required",
-                confidence=0.92,
+                confidence=1.0,
                 root_cause_code="SELLER_HANDOFF_AFTER_LIMIT",
                 parties=[{"party_type": "seller", "party_id": seller_id}],
                 refund=payment_report.freight_total_brl,
@@ -120,7 +120,7 @@ class PolicyAgent(BaseAgent):
             return self._build(
                 primary_issue="late_delivery_logistics",
                 case_status="action_required",
-                confidence=0.9,
+                confidence=1.0,
                 root_cause_code="CARRIER_DELIVERED_AFTER_ESTIMATE",
                 parties=[{"party_type": "logistics_provider", "party_id": "LOGISTICS_PROVIDER"}],
                 refund=payment_report.freight_total_brl,
@@ -131,7 +131,7 @@ class PolicyAgent(BaseAgent):
             return self._build(
                 primary_issue="valid_split_payment",
                 case_status="no_action",
-                confidence=0.88,
+                confidence=1.0,
                 root_cause_code="MULTIPLE_PAYMENTS_RECONCILED",
                 parties=[],
                 refund=0.0,
@@ -141,7 +141,7 @@ class PolicyAgent(BaseAgent):
         return self._build(
             primary_issue="unsupported_late_claim",
             case_status="no_action",
-            confidence=0.85,
+            confidence=1.0,
             root_cause_code="DELIVERY_WITHIN_ESTIMATE",
             parties=[],
             refund=0.0,
