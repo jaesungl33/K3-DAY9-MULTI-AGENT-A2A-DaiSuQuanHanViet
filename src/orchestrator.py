@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 from src.agents.base import TraceLogger
@@ -33,16 +34,18 @@ def process_all(input_dir: Path = INPUT_DIR, output_dir: Path = OUTPUT_DIR) -> l
     coordinator = CoordinatorAgent(trace, llm)
 
     case_files = sorted(input_dir.glob("EC_*.json"))
-    processed: list[str] = []
 
-    for case_path in case_files:
+    def _process_one(case_path: Path) -> str:
         case = load_case(case_path)
         output = process_case(case, coordinator)
         out_path = output_dir / f"{case.case_id}.json"
         with out_path.open("w", encoding="utf-8") as handle:
             json.dump(output, handle, ensure_ascii=False, indent=2)
             handle.write("\n")
-        processed.append(case.case_id)
+        return case.case_id
+
+    with ThreadPoolExecutor(max_workers=4) as executor:
+        processed = list(executor.map(_process_one, case_files))
 
     trace.flush()
     return processed
