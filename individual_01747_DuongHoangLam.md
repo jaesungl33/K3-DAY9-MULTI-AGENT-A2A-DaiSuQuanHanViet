@@ -5,9 +5,9 @@
 | Thông tin       | Nội dung                                      |
 | --------------- | --------------------------------------------- |
 | Họ và tên       | Dương Hoàng Lâm                               |
-| MSSV            | 23512                                         |
+| MSSV            | 01747                                         |
 | Khóa/Lớp        | K3                                            |
-| Vai trò chính   | Lead Multi-Agent Systems Developer & Optimization Engineer |
+| Vai trò chính   | Multi-Agent Systems Optimization Engineer     |
 | Ngày hoàn thành | 2026-08-05                                    |
 
 ## 2. Vai trò và phạm vi công việc
