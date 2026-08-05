@@ -2,18 +2,10 @@
   "cohort": "K3",
   "starter_repo": "K3-DAY9-MULTI-AGENT-A2A-DaiSuQuanHanViet",
   "policy_version": "EC_POLICY_V1",
-  "framework": "custom-python-multi-agent + heterogeneous-llm-ensemble",
-  "runtime": "openai-api + groq-api",
-  "model_name": "gemma-2-9b-it + llama-3.1-8b-instruct + gpt-4o-mini + qwen2.5-7b-instruct",
-  "parameter_size_b": 9,
-  "agent_models": {
-    "coordinator_agent": "gpt-4o-mini (8B)",
-    "order_seller_agent": "llama-3.1-8b-instruct (8B)",
-    "payment_agent": "qwen2.5-7b-instruct (7B)",
-    "delivery_agent": "gpt-4o-mini (8B)",
-    "policy_agent": "gemma-2-9b-it (9B)",
-    "verifier_agent": "gemma-2-9b-it (9B)"
-  },
+  "framework": "custom-python-multi-agent + openai",
+  "runtime": "openai-api",
+  "model_name": "gpt-4o-mini",
+  "parameter_size_b": 8,
   "language": "python",
   "python_version": "3.11+",
   "dependencies": [
@@ -29,5 +21,5 @@
     "policy_agent",
     "verifier_agent"
   ],
-  "notes": "Heterogeneous multi-agent architecture: Domain agents run specialized <=10B models (Gemma-2-9B, Llama-3.1-8B, Qwen2.5-7B, GPT-4o-mini). Policy decisions follow EC_POLICY_V1 rule engine with 100% deterministic grounding."
+  "notes": "Multi-agent dispute resolution architecture using gpt-4o-mini (<=10B). Policy decisions follow EC_POLICY_V1 rule engine with 100% evidence-based grounding."
 }
