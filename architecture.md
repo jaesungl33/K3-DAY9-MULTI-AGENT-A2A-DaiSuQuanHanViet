@@ -56,6 +56,17 @@ Tất cả agent đọc qua `src/data_loader.py` — không agent nào tự mở
 5. `valid_split_payment`
 6. `unsupported_late_claim`
 
+## Heterogeneous Model Assignment (≤10B parameters)
+
+| Agent | Assigned Model | Parameter Size | Primary Task |
+| ----- | -------------- | -------------- | ------------ |
+| **Coordinator Agent** | `gpt-4o-mini` | 8B | Multi-agent orchestration & trace synthesis |
+| **Order & Seller Agent** | `llama-3.1-8b-instruct` | 8B | Item & seller record extraction |
+| **Payment Agent** | `qwen2.5-7b-instruct` | 7B | Payment reconciliation & split payment check |
+| **Delivery Agent** | `gpt-4o-mini` | 8B | Timeline calculation & estimated date comparison |
+| **Policy Agent** | `gemma-2-9b-it` | **9B** | EC_POLICY_V1 rule engine evaluation |
+| **Verifier Agent** | `gemma-2-9b-it` | **9B** | Evidence ID grounding & schema limit verification |
+
 ## Runtime
 
 ```bash
@@ -64,7 +75,7 @@ pip install -r requirements.txt
 python main.py
 ```
 
-**Model:** `gemma-2-9b-it` (9B parameters, ≤10B limit) / `gpt-4o-mini` (8B parameters)  
+**Primary Model:** `gemma-2-9b-it` (9B parameters, ≤10B limit)  
 **Provider:** OpenAI API & Groq API — each agent makes a separate structured JSON call using specialized ≤10B models.
 
 Input: `input/EC_001.json` … `EC_050.json`  
