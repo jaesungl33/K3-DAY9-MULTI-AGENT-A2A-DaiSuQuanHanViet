@@ -1,0 +1,18 @@
+{
+  "framework": "custom-python-multi-agent + openai",
+  "runtime": "openai-api",
+  "model_name": "gpt-4o-mini",
+  "parameter_size_b": 8,
+  "language": "python",
+  "python_version": "3.11+",
+  "dependencies": ["pandas>=2.0.0", "openai>=1.40.0", "python-dotenv>=1.0.0"],
+  "agents": [
+    "coordinator_agent",
+    "order_seller_agent",
+    "payment_agent",
+    "delivery_agent",
+    "policy_agent",
+    "verifier_agent"
+  ],
+  "notes": "Each agent makes a separate gpt-4o-mini call. CSV facts are computed deterministically; LLM provides per-domain analysis, confidence, and trace reasoning. Policy decisions follow EC_POLICY_V1 rule engine."
+}
