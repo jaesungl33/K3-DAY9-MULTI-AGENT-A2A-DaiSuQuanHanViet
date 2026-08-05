@@ -1,11 +1,18 @@
 {
+  "cohort": "K3",
+  "starter_repo": "K3-DAY9-MULTI-AGENT-A2A-DaiSuQuanHanViet",
+  "policy_version": "EC_POLICY_V1",
   "framework": "custom-python-multi-agent + openai",
   "runtime": "openai-api",
   "model_name": "gpt-4o-mini",
   "parameter_size_b": 8,
   "language": "python",
   "python_version": "3.11+",
-  "dependencies": ["pandas>=2.0.0", "openai>=1.40.0", "python-dotenv>=1.0.0"],
+  "dependencies": [
+    "pandas>=2.0.0",
+    "openai>=1.40.0",
+    "python-dotenv>=1.0.0"
+  ],
   "agents": [
     "coordinator_agent",
     "order_seller_agent",
