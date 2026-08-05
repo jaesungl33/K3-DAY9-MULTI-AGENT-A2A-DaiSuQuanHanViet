@@ -1,0 +1,26 @@
+{
+  "case_count": 50,
+  "framework": "Custom Python multi-agent orchestrator",
+  "generated_at": "2026-08-05T03:02:50.193324+00:00",
+  "issue_counts": {
+    "canceled_order_paid": 8,
+    "late_delivery_logistics": 8,
+    "late_delivery_seller": 8,
+    "unavailable_order_paid": 8,
+    "unsupported_late_claim": 9,
+    "valid_split_payment": 9
+  },
+  "model": {
+    "name": "deterministic-ec-policy-v1",
+    "parameter_size": "0B (rule-based, no trainable parameters)",
+    "provider": "local"
+  },
+  "output_directory": "output",
+  "policy_version": "EC_POLICY_V1",
+  "run_id": "6dc9bb8ffb674852b537c3eb7c17a3f6",
+  "runtime": {
+    "platform": "Windows-10-10.0.19045-SP0",
+    "python": "3.11.9"
+  },
+  "trace_file": "logging/trace.jsonl"
+}

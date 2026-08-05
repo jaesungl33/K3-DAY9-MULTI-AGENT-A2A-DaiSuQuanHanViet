@@ -1,0 +1,1 @@
+python scripts\run_lab.py run --project-root . --zip-output output_submission.zip
