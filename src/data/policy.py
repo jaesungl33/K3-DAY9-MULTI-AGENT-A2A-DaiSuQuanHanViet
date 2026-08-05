@@ -77,7 +77,7 @@ def apply_policy(bundle: OrderBundle) -> PolicyDecision:
         return PolicyDecision(
             primary_issue="canceled_order_paid",
             case_status="action_required",
-            confidence=0.98,
+            confidence=1.0,
             cause_code="ORDER_CANCELED_AFTER_PAYMENT",
             responsible_parties=[{"party_type": "platform", "party_id": "OLIST_PLATFORM"}],
             recommended_refund_brl=pay_total,
@@ -90,7 +90,7 @@ def apply_policy(bundle: OrderBundle) -> PolicyDecision:
         return PolicyDecision(
             primary_issue="unavailable_order_paid",
             case_status="action_required",
-            confidence=0.98,
+            confidence=1.0,
             cause_code="ORDER_UNAVAILABLE_AFTER_PAYMENT",
             responsible_parties=[{"party_type": "platform", "party_id": "OLIST_PLATFORM"}],
             recommended_refund_brl=pay_total,
@@ -109,7 +109,7 @@ def apply_policy(bundle: OrderBundle) -> PolicyDecision:
         return PolicyDecision(
             primary_issue="late_delivery_seller",
             case_status="action_required",
-            confidence=0.95,
+            confidence=1.0,
             cause_code="SELLER_HANDOFF_AFTER_LIMIT",
             responsible_parties=parties,
             recommended_refund_brl=freight,
@@ -122,7 +122,7 @@ def apply_policy(bundle: OrderBundle) -> PolicyDecision:
         return PolicyDecision(
             primary_issue="late_delivery_logistics",
             case_status="action_required",
-            confidence=0.94,
+            confidence=1.0,
             cause_code="CARRIER_DELIVERED_AFTER_ESTIMATE",
             responsible_parties=[
                 {"party_type": "logistics_provider", "party_id": "LOGISTICS_PROVIDER"}
@@ -137,7 +137,7 @@ def apply_policy(bundle: OrderBundle) -> PolicyDecision:
         return PolicyDecision(
             primary_issue="valid_split_payment",
             case_status="no_action",
-            confidence=0.93,
+            confidence=1.0,
             cause_code="MULTIPLE_PAYMENTS_RECONCILED",
             responsible_parties=[],
             recommended_refund_brl=0.0,
@@ -150,7 +150,7 @@ def apply_policy(bundle: OrderBundle) -> PolicyDecision:
         return PolicyDecision(
             primary_issue="unsupported_late_claim",
             case_status="no_action",
-            confidence=0.92,
+            confidence=1.0,
             cause_code="DELIVERY_WITHIN_ESTIMATE",
             responsible_parties=[],
             recommended_refund_brl=0.0,

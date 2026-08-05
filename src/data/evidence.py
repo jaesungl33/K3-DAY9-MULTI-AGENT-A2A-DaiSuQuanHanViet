@@ -29,10 +29,8 @@ def build_evidence_ids(bundle: OrderBundle, decision: PolicyDecision) -> list[st
                 if sid not in evidence:
                     evidence.append(sid)
 
-    policy_id = f"policy:{decision.cause_code}"
-    evidence.append(policy_id)
+    evidence.append(f"policy:{decision.cause_code}")
 
-    # Deduplicate, preserve order; never drop policy when capping at 10.
     seen: set[str] = set()
     unique: list[str] = []
     for eid in evidence:
@@ -45,17 +43,4 @@ def build_evidence_ids(bundle: OrderBundle, decision: PolicyDecision) -> list[st
 
     policy = [e for e in unique if e.startswith("policy:")]
     rest = [e for e in unique if not e.startswith("policy:")]
-    kept = rest[: MAX_EVIDENCE_IDS - len(policy)] + policy
-    return kept[:MAX_EVIDENCE_IDS]
-
-
-def seller_ids_for_entities(decision: PolicyDecision, fallback_seller_ids: list[str]) -> list[str]:
-    """Keep seller entity IDs only when the case blames a seller."""
-    if decision.primary_issue != "late_delivery_seller":
-        return []
-    responsible = [
-        p["party_id"]
-        for p in decision.responsible_parties
-        if p.get("party_type") == "seller" and p.get("party_id")
-    ]
-    return responsible[:5] if responsible else fallback_seller_ids[:5]
+    return (rest[: MAX_EVIDENCE_IDS - len(policy)] + policy)[:MAX_EVIDENCE_IDS]

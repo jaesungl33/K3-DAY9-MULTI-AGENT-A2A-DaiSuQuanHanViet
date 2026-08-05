@@ -33,6 +33,7 @@ class PolicyAgent(BaseAgent):
             },
             "affected_entities": {
                 "order_ids": [order_id],
+                # Keep all related entities from the order (needed for Entity score).
                 "item_ids": message.payload.get("item_ids", [])[:5],
                 "seller_ids": message.payload.get("seller_ids", [])[:5],
                 "payment_ids": message.payload.get("payment_ids", [])[:5],
