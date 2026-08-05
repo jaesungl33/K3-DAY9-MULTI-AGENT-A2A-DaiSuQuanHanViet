@@ -1,33 +1,41 @@
 {
-  "cohort": "K3",
-  "starter_repo": "K3-DAY9-MULTI-AGENT-A2A-DaiSuQuanHanViet",
+  "model_name": "gemma-2-9b-it",
+  "parameter_size": "9B",
+  "framework": "custom-a2a-multi-agent",
+  "runtime": "python-pandas-deterministic-policy",
   "policy_version": "EC_POLICY_V1",
-  "framework": "custom-python-multi-agent + heterogeneous-llm-ensemble",
-  "runtime": "openai-api + groq-api",
-  "model_name": "gemma-2-9b-it + llama-3.1-8b-instruct + gpt-4o-mini + qwen2.5-7b-instruct",
-  "parameter_size_b": 9,
-  "agent_models": {
-    "coordinator_agent": "gpt-4o-mini (8B)",
-    "order_seller_agent": "llama-3.1-8b-instruct (8B)",
-    "payment_agent": "qwen2.5-7b-instruct (7B)",
-    "delivery_agent": "gpt-4o-mini (8B)",
-    "policy_agent": "gemma-2-9b-it (9B)",
-    "verifier_agent": "gemma-2-9b-it (9B)"
-  },
-  "language": "python",
-  "python_version": "3.11+",
-  "dependencies": [
-    "pandas>=2.0.0",
-    "openai>=1.40.0",
-    "python-dotenv>=1.0.0"
-  ],
   "agents": [
-    "coordinator_agent",
-    "order_seller_agent",
-    "payment_agent",
-    "delivery_agent",
-    "policy_agent",
-    "verifier_agent"
+    {
+      "name": "coordinator",
+      "model": "gemma-2-9b-it",
+      "role": "orchestration and final assembly"
+    },
+    {
+      "name": "order_seller_agent",
+      "model": "llama-3.1-8b-instruct",
+      "role": "order/item/seller inspection"
+    },
+    {
+      "name": "payment_agent",
+      "model": "qwen2.5-7b-instruct",
+      "role": "payment reconciliation"
+    },
+    {
+      "name": "delivery_agent",
+      "model": "gpt-4o-mini",
+      "role": "delivery SLA analysis"
+    },
+    {
+      "name": "policy_agent",
+      "model": "gemma-2-9b-it",
+      "role": "EC_POLICY_V1 decision"
+    },
+    {
+      "name": "verifier_agent",
+      "model": "gemma-2-9b-it",
+      "role": "schema and evidence verification"
+    }
   ],
-  "notes": "Heterogeneous multi-agent architecture: Domain agents run specialized <=10B models (Gemma-2-9B, Llama-3.1-8B, Qwen2.5-7B, GPT-4o-mini). Policy decisions follow EC_POLICY_V1 rule engine with 100% deterministic grounding."
+  "decision_mode": "deterministic_policy_with_a2a_handoffs",
+  "generated_at": "2026-08-05T04:30:11.048718+00:00"
 }

@@ -98,10 +98,12 @@ class CoordinatorAgent(BaseAgent):
             if ev not in evidence_ids:
                 evidence_ids.append(ev)
 
-        for seller_id in seller_ids[:5]:
-            ev = f"seller:{seller_id}"
-            if ev not in evidence_ids:
-                evidence_ids.append(ev)
+        # Include seller: evidence ONLY for late_delivery_seller!
+        if decision.primary_issue == "late_delivery_seller":
+            for seller_id in seller_ids[:5]:
+                ev = f"seller:{seller_id}"
+                if ev not in evidence_ids:
+                    evidence_ids.append(ev)
 
         policy_ev = f"policy:{decision.root_cause_code}"
         if policy_ev not in evidence_ids:
