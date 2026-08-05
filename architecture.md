@@ -105,3 +105,15 @@ Chỉ dùng ID dựng được từ CSV:
 - `policy:<root_cause_code>`
 
 Verifier loại bỏ evidence sai format trước khi ghi output.
+
+## Deliverables khớp input/output hiện tại
+
+| Artifact | Đường dẫn | Ghi chú |
+| -------- | --------- | ------- |
+| Input 50 case | `input/EC_001.json` … `input/EC_050.json` | `claimed_order_id` → Olist |
+| Output 50 case | `output/EC_001.json` … `output/EC_050.json` | cùng `case_id` với input |
+| Trace | `logging/trace.jsonl` | 50 dòng, handoff thật |
+| Metadata | `logging/metadata.json` | model 8B / framework / runtime |
+| Architecture | `architecture.md` | file này |
+| Báo cáo cá nhân | `individual_01329_PhamDucHiep.md` | Phạm Đức Hiệp / 01329 |
+| Hướng dẫn chạy | `README2.md` | setup → validate → zip |

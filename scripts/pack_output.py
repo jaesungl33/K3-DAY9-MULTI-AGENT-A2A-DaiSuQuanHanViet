@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Zip output/ into output_submission.zip containing only EC_001..EC_050.json."""
+"""Zip folder output/ so entries are output/EC_001.json ... output/EC_050.json."""
 
 from __future__ import annotations
 
@@ -26,8 +26,9 @@ def main() -> int:
         ZIP_PATH.unlink()
     with zipfile.ZipFile(ZIP_PATH, "w", compression=zipfile.ZIP_DEFLATED) as zf:
         for path in files:
-            zf.write(path, arcname=path.name)
-    print(f"Created {ZIP_PATH} with {len(files)} files")
+            # Required layout inside ZIP: output/EC_001.json ... output/EC_050.json
+            zf.write(path, arcname=f"output/{path.name}")
+    print(f"Created {ZIP_PATH} with {len(files)} files under output/")
     return 0
 
 

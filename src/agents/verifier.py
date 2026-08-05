@@ -92,13 +92,17 @@ class VerifierAgent(BaseAgent):
         )
 
         evidence = [e for e in draft.get("evidence_ids", []) if _valid_evidence(e)]
-        # de-dupe preserve order
+        # de-dupe preserve order; never drop policy:* when capping
         seen = set()
         unique_evidence = []
         for e in evidence:
             if e not in seen:
                 seen.add(e)
                 unique_evidence.append(e)
+        if len(unique_evidence) > MAX_EVIDENCE_IDS:
+            policy = [e for e in unique_evidence if e.startswith("policy:")]
+            rest = [e for e in unique_evidence if not e.startswith("policy:")]
+            unique_evidence = rest[: MAX_EVIDENCE_IDS - len(policy)] + policy
         draft["evidence_ids"] = unique_evidence[:MAX_EVIDENCE_IDS]
 
         draft["financial_resolution"] = _round_money_fields(draft["financial_resolution"])

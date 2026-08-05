@@ -182,9 +182,10 @@ Nén folder `output/` thành file zip. Zip phải chứa đúng 50 JSON từ `EC
 Trong repo phải có thêm:
 
 - `architecture.md`: sơ đồ agent, vai trò, quyền truy cập và luồng handoff (đặt ở root repo)
-- `individual_5SoCuoiMHV_HoVaTen.md`: báo cáo cá nhân (đặt ở root repo)
-- `trace.jsonl`: trace chạy thật của 50 case (không append, chỉ cần lượt chạy mới nhất)
-- `metadata.json`: model, parameter size, framework và runtime
+- `individual_01329_PhamDucHiep.md`: báo cáo cá nhân (đặt ở root repo)
+- `logging/trace.jsonl`: trace chạy thật của 50 case (không append, chỉ cần lượt chạy mới nhất)
+- `logging/metadata.json`: model, parameter size, framework và runtime
+- `output/`: 50 JSON kết quả khớp `input/EC_001`…`EC_050`
 
 &rarr; Làm chung trên 1 repo nhóm, báo cáo cá nhân để chung trong repo và nộp repo nhóm này, giữ nguyên tên repo không đổi
 

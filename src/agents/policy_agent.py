@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from src.agents.base import A2AMessage, BaseAgent
+from src.data.evidence import build_evidence_ids
 from src.data.policy import apply_policy
 from src.data.store import DataStore
 
@@ -21,7 +22,7 @@ class PolicyAgent(BaseAgent):
         assert bundle is not None
 
         decision = apply_policy(bundle)
-        evidence = list(message.evidence_ids) + [f"policy:{decision.cause_code}"]
+        evidence = build_evidence_ids(bundle, decision)
 
         draft = {
             "case_id": message.case_id,

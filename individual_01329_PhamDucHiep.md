@@ -4,13 +4,13 @@
 
 ## 1. Thông tin cá nhân
 
-| Thông tin       | Nội dung     |
-| --------------- | ------------ |
-| Họ và tên       | [Họ và tên]  |
-| MSSV            | [MSSV]       |
-| Khóa/Lớp        | [K3]         |
+| Thông tin       | Nội dung        |
+| --------------- | --------------- |
+| Họ và tên       | Phạm Đức Hiệp   |
+| MSSV            | 01329           |
+| Khóa/Lớp        | [K3]            |
 | Vai trò chính   | [Ví dụ: Policy Agent / Data / Coordinator / Docs] |
-| Ngày hoàn thành | [YYYY-MM-DD] |
+| Ngày hoàn thành | [YYYY-MM-DD]    |
 
 ## 2. Vai trò và phạm vi công việc
 
@@ -107,5 +107,5 @@ Trả lời bằng lời của bạn:
 - [ ] Không chứa `.env`, API key, token hoặc secret
 - [ ] Không sao chép nguyên văn báo cáo nhóm/thành viên khác
 
-**Họ và tên:** [Họ và tên]  
+**Họ và tên:** Phạm Đức Hiệp  
 **Ngày xác nhận:** [YYYY-MM-DD]
