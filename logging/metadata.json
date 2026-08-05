@@ -1,0 +1,41 @@
+{
+  "model_name": "llama-3.1-8b-instant",
+  "parameter_size": "8B",
+  "framework": "custom-a2a-multi-agent",
+  "runtime": "python-pandas-deterministic-policy",
+  "policy_version": "EC_POLICY_V1",
+  "agents": [
+    {
+      "name": "coordinator",
+      "model": "llama-3.1-8b-instant",
+      "role": "orchestration and final assembly"
+    },
+    {
+      "name": "order_seller_agent",
+      "model": "llama-3.1-8b-instant",
+      "role": "order/item/seller inspection"
+    },
+    {
+      "name": "payment_agent",
+      "model": "llama-3.1-8b-instant",
+      "role": "payment reconciliation"
+    },
+    {
+      "name": "delivery_agent",
+      "model": "llama-3.1-8b-instant",
+      "role": "delivery SLA analysis"
+    },
+    {
+      "name": "policy_agent",
+      "model": "llama-3.1-8b-instant",
+      "role": "EC_POLICY_V1 decision"
+    },
+    {
+      "name": "verifier_agent",
+      "model": "llama-3.1-8b-instant",
+      "role": "schema and evidence verification"
+    }
+  ],
+  "decision_mode": "deterministic_policy_with_a2a_handoffs",
+  "generated_at": "2026-08-05T02:58:53.081188+00:00"
+}
