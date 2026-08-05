@@ -87,18 +87,48 @@ class CoordinatorAgent(BaseAgent):
         evidence_ids: list[str] = []
         if order:
             evidence_ids.append(f"order:{order_id}")
-        for item in order_report.items[:5]:
-            ev = f"item:{order_id}:{item.order_item_id}"
-            if ev not in evidence_ids:
-                evidence_ids.append(ev)
-        for payment in payment_report.payments[:5]:
-            ev = f"payment:{payment.order_id}:{payment.payment_sequential}"
-            if ev not in evidence_ids:
-                evidence_ids.append(ev)
-        for seller_id in seller_ids[:5]:
-            ev = f"seller:{seller_id}"
-            if ev not in evidence_ids:
-                evidence_ids.append(ev)
+
+        issue = decision.primary_issue
+        if issue in ("canceled_order_paid", "unavailable_order_paid"):
+            for payment in payment_report.payments[:5]:
+                ev = f"payment:{payment.order_id}:{payment.payment_sequential}"
+                if ev not in evidence_ids:
+                    evidence_ids.append(ev)
+        elif issue == "late_delivery_seller":
+            for item in order_report.items[:5]:
+                ev = f"item:{order_id}:{item.order_item_id}"
+                if ev not in evidence_ids:
+                    evidence_ids.append(ev)
+            for payment in payment_report.payments[:5]:
+                ev = f"payment:{payment.order_id}:{payment.payment_sequential}"
+                if ev not in evidence_ids:
+                    evidence_ids.append(ev)
+            if order_report.violating_seller_id:
+                ev = f"seller:{order_report.violating_seller_id}"
+                if ev not in evidence_ids:
+                    evidence_ids.append(ev)
+            else:
+                for seller_id in seller_ids[:5]:
+                    ev = f"seller:{seller_id}"
+                    if ev not in evidence_ids:
+                        evidence_ids.append(ev)
+        elif issue == "late_delivery_logistics":
+            for item in order_report.items[:5]:
+                ev = f"item:{order_id}:{item.order_item_id}"
+                if ev not in evidence_ids:
+                    evidence_ids.append(ev)
+            for payment in payment_report.payments[:5]:
+                ev = f"payment:{payment.order_id}:{payment.payment_sequential}"
+                if ev not in evidence_ids:
+                    evidence_ids.append(ev)
+        elif issue == "valid_split_payment":
+            for payment in payment_report.payments[:5]:
+                ev = f"payment:{payment.order_id}:{payment.payment_sequential}"
+                if ev not in evidence_ids:
+                    evidence_ids.append(ev)
+        elif issue == "unsupported_late_claim":
+            pass
+
         policy_ev = f"policy:{decision.root_cause_code}"
         if policy_ev not in evidence_ids:
             evidence_ids.append(policy_ev)
