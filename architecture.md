@@ -64,8 +64,8 @@ pip install -r requirements.txt
 python main.py
 ```
 
-**Model:** `gpt-4o-mini` (declared in `src/config.py`, ≤10B parameters)  
-**Provider:** OpenAI API — each agent makes a separate structured JSON call.
+**Model:** `gemma-2-9b-it` (9B parameters, ≤10B limit) / `gpt-4o-mini` (8B parameters)  
+**Provider:** OpenAI API & Groq API — each agent makes a separate structured JSON call using specialized ≤10B models.
 
 Input: `input/EC_001.json` … `EC_050.json`  
 Output: `output/EC_001.json` … `EC_050.json`  
